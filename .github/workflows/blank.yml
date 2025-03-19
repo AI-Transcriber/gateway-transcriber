@@ -20,12 +20,15 @@ jobs:
 
     env:
       # Define the GITHUB_TOKEN for use in the workflow
-      GITHUB_TOKEN: 12345678
-
+      GITHUB_TOKEN: azure
+      plasform: linux
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: 'Mostrar Mensaje'
         run: echo Hola
+       
 
       - name: 'Mostrar variables de entorno'
+        if: ${{ env.plasform == 'azure' }}
         run: 'echo Esto es una variable de entorno: $GITHUB_TOKEN'
+
