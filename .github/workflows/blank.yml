@@ -32,5 +32,7 @@ jobs:
         #if: ${{ env.plasform == 'azure' }}
         run: |
           echo Esto es una variable de entorno: $GITHUB_TOKEN
-          echo Esto es una variable de entorno: ${{toJson(github.event)}}
+      - name: 'Mostrar variables de entorno'
+        run: |
+          echo Esto es una variable de entorno: $GITHUB_ACTOR
 
