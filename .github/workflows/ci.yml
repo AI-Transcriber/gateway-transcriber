@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: ['main']
+  pull_request: 
+    branches: ['main']
+
+  workflow_dispatch:
+
+jobs:
+ Check:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 'Descargar Dependencias'
+        run: npm run install
+        working-directory: ./gateway-transcriber
+       
