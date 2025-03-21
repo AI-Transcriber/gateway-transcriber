@@ -1,38 +1,23 @@
-# This is a basic workflow to help you get started with Actions
+name: Docker
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: ['main']
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    env:
-      # Define the GITHUB_TOKEN for use in the workflow
-      GITHUB_TOKEN: azure
-      plasform: linux
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  Build:
+    runs-on: ubuntu-22.04
     steps:
-      - name: 'Mostrar Mensaje'
-        run: echo Hola
-       
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-      - name: 'Mostrar variables de entorno'
-        #if: ${{ env.plasform == 'azure' }}
-        run: |
-          echo Esto es una variable de entorno: $GITHUB_TOKEN
-      - name: 'Mostrar variables de entorno'
-        run: |
-          echo Esto es una variable de entorno: $GITHUB_ACTOR
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Execute eslint
+        run: npm run lint
