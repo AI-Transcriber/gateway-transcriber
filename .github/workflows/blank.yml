@@ -3,12 +3,15 @@ name: Docker
 on:
   push:
     branches: ['main']
+  pull_request: 
+    branches: ['main']
+    types: [opened, synchronize]
 
 jobs:
   Build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -21,6 +24,6 @@ jobs:
 
       - name: Build project
         run: npm run build
-      
+
       - name: format code
         run: npm run format
