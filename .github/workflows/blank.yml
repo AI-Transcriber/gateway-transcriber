@@ -3,7 +3,7 @@ name: Docker
 on:
   push:
     branches: ['main']
-  pull_request: 
+  pull_request:
     branches: ['main']
     types: [opened, synchronize]
 
@@ -27,3 +27,11 @@ jobs:
 
       - name: format code
         run: npm run format
+
+  Deploy:
+    runs-on: ubuntu-22.04
+    needs: Build
+    steps:
+      - name: Deploy to production
+        if: github.event_name == 'push'
+        run: echo "Deploying to production"
