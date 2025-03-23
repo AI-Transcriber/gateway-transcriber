@@ -47,6 +47,9 @@ jobs:
         run: npm run format
   Docker:
     runs-on: ubuntu-22.04
+    steps:
+      - name: Dokcer Login
+        uses: actions/checkout@v4
   Deploy:
     runs-on: ubuntu-22.04
     needs: Build
