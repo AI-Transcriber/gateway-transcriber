@@ -45,6 +45,7 @@ jobs:
       - name: format code
         run: npm run format
   Docker:
+    needs: Build
     runs-on: ubuntu-22.04
     steps:
       - name: Dokcer Login
