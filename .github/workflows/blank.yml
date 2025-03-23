@@ -6,19 +6,13 @@ on:
   pull_request:
     branches: ['main']
     types: [opened, synchronize]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  Cancel_previous_runs:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.12.1
-        with:
-          access_token: ${{ github.token }}
-
   Build:
     runs-on: ubuntu-22.04
-    needs: Cancel_previous_runs
     steps:
       - uses: actions/checkout@v4
         with:
