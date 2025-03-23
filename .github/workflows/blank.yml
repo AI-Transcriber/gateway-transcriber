@@ -18,7 +18,6 @@ jobs:
           access_token: ${{ github.token }}
 
   Build:
-    needs: Cancel_previous_workflow_runs
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
