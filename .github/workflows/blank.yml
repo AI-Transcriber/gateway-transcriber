@@ -16,7 +16,7 @@ jobs:
         uses: styfle/cancel-workflow-action@0.8.0
         with:
           access_token: ${{ github.token }}
-          
+
   Build:
     needs: Cancel_previous_workflow_runs
     runs-on: ubuntu-22.04
@@ -45,7 +45,8 @@ jobs:
 
       - name: format code
         run: npm run format
-
+  Docker:
+    runs-on: ubuntu-22.04
   Deploy:
     runs-on: ubuntu-22.04
     needs: Build
