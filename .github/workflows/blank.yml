@@ -1,4 +1,4 @@
-name: Docke
+name: Docker Image CI/CD
 
 on:
   push:
@@ -13,7 +13,9 @@ jobs:
     steps:
       - name: Cancel previous workflow runs
         uses: styfle/cancel-workflow-action@0.8.0
-      
+        with:
+          access_token: ${{ github.token }}
+          
   Build:
     needs: Cancel_previous_workflow_runs
     runs-on: ubuntu-22.04
