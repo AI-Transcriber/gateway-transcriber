@@ -38,12 +38,16 @@ jobs:
 
       - name: format code
         run: npm run format
+
+
   Docker:
     needs: Build
     runs-on: ubuntu-22.04
     steps:
-      - name: Dokcer Login
-        uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build . -t gateway
+
+
   Deploy:
     runs-on: ubuntu-22.04
     needs: [Docker]
