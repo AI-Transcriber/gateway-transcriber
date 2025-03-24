@@ -28,7 +28,7 @@ jobs:
         uses: discord-actions/message@v2
         with:
            webhookUrl: ${{ secrets.DISCORD }}
-           message: ${{github.action_status}}
+           message: "New commit pushed to main branch-${{ github.action_status }}"
 
       - name: Install dependencies
         run: npm ci
