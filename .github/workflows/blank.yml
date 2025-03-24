@@ -54,7 +54,9 @@ jobs:
         with:
           file: Dockerfile
           push: true
-          tags: ${{github.actor}}/gateway-repositoy:latest
+          tags: |
+           gateway-repositoy:latest
+           echo ${{github.actor}}
 
   Deploy_AWS:
     needs: [Docker, Build]
