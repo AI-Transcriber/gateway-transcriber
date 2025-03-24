@@ -39,21 +39,21 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: format code
-        run: npm run format
       - name: Login to ECR
         uses: docker/login-action@v3
         with:
           registry: 767397723821.dkr.ecr.us-east-2.amazonaws.com/gateway-repositoy:latest
           username: ${{ vars.AWS_ACCESS_KEY }}
           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    
-      - name: Build Docker image
-        uses: docker/build-push-action@v2
+      
+
+      - name: Build and Push Docker Image to ECR
+        uses: docker/build-push-action@v5
         with:
-          file: ./Dockerfile
+          context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/nodejs-app:latest
+          tags: 767397723821.dkr.ecr.us-east-2.amazonaws.com/gateway-repositoy:latest
+      
 
       
       
