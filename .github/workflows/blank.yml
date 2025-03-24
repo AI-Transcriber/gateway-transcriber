@@ -54,8 +54,7 @@ jobs:
         with:
           file: Dockerfile
           push: true
-          tags: | 
-           767397723821.dkr.ecr.us-east-2.amazonaws.com/gateway-repositoy/${{ github.actor }}:latest
+          tags: gateway-repositoy:latest 767397723821.dkr.ecr.us-east-2.amazonaws.com/gateway-repositoy:latest
 
   Deploy_AWS:
     needs: [Docker, Build]
