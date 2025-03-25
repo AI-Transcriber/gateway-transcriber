@@ -1,0 +1,76 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 9000:9000
+    restart: always
+    # volumes:
+    #   - .:/app
+    container_name: app
+    networks:
+      - naruto
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/my-app-logs  # Grupo de logs
+        awslogs-stream: app-stream  # Stream de logs
+        awslogs-region: us-east-2
+   
+  aws:
+    image: amazon/cloudwatch-agent
+    container_name: aws
+    restart: always
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-2
+      
+
+
+    networks:
+      - naruto
+
+  # grafana:
+  #   image: grafana/grafana
+  #   container_name: grafana
+  #   ports:
+  #     - 3000:3000
+  #   restart: always
+  #   networks:
+  #     - naruto
+  #   depends_on:
+  #     - grafana-loki
+  #   volumes:
+  #     - loki-data:/tmp/loki
+  
+  # promtail:
+  #   image: grafana/promtail:latest
+  #   container_name: promtail
+  #   volumes:
+  #     - loki-data:/tmp/loki
+  #   networks:
+  #     - naruto
+  #   depends_on:
+  #     - grafana-loki
+
+  # grafana-loki:
+  #   image: grafana/loki:latest
+  #   container_name: loki
+  #   ports:
+  #     - 3100:3100
+  #   restart: always
+  #   networks:
+  #     - naruto 
+  #   volumes:
+  #     - ./loki-config/loki-config.yml:/etc/loki/config.yml
+  #     - loki-data:/tmp/loki  
+    
+
+
+# volumes:
+#   loki-data:
+  
+networks:
+  naruto:
