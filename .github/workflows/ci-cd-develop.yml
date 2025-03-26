@@ -12,9 +12,8 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-22.04
-    environment: 
-      name: Develop
-   
+    
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
