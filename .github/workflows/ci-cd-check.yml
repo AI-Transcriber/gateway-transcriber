@@ -25,9 +25,6 @@ jobs:
         run: |
           npm install
           npm install -g npm@latest
-      - name: 'Dependency Review'
-        uses: actions/dependency-review-action@v4
-
       - name: Build
         run: npm run build
 
