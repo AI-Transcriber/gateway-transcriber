@@ -1,11 +1,12 @@
 name: Devolepment CI/CD
 on:
-  push:
-    branches:
-      - develop
+
   pull_request:
     types: [opened, synchronize]
     branches:
+      - develop
+  push: 
+    branches: 
       - develop
 jobs:
   Build:
