@@ -17,7 +17,7 @@ jobs:
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -29,19 +29,7 @@ jobs:
         run: |
           npm install
           npm install -g npm@latest
-      - name: 'Dependency Review'
-        uses: actions/dependency-review-action@v4
 
       - name: Build
         run: npm run build
 
-  # Docker:
-  #     runs-on: ubuntu-22.04
-  #     needs: Build
-  #     steps:
-  #        - name: Login to ECR
-  #          uses: docker/login-action@v3
-  #          with:
-  #           registry: <aws-account-number>.dkr.ecr.<region>.amazonaws.com
-  #           username: ${{  }}
-  #           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
