@@ -4,14 +4,14 @@ on:
         branches:
         - develop
     pull_request:
-        types: [opened, synchronize]
+        types: [opened]
         branches:
         - develop
 jobs:
     Build:
         permissions: 
             contents: read
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
 
         steps:
         - name: Checkout
@@ -27,8 +27,20 @@ jobs:
           run: |
             npm install
             npm install -g npm@latest
+        - name: 'Dependency Review'
+          uses: actions/dependency-review-action@v4
         
         - name: Build
           run: npm run build
     
-    
+    # Docker:
+    #     runs-on: ubuntu-22.04
+    #     needs: Build
+    #     steps:
+    #        - name: Login to ECR
+    #          uses: docker/login-action@v3
+    #          with:
+    #           registry: <aws-account-number>.dkr.ecr.<region>.amazonaws.com
+    #           username: ${{ vars.AWS_ACCESS_KEY_ID }}
+    #           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            
