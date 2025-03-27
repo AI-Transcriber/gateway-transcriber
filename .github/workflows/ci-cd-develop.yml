@@ -50,7 +50,10 @@ jobs:
           registry: 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber
           username: ${{env.AWS_USERNAME}}
           password: ${{env.AWS_PASSWORD}}
-
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          
       - name: Build and Push Docker Image 
         uses: docker/build-push-action@v6
         with:
