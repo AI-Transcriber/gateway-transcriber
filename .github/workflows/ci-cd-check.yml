@@ -50,6 +50,9 @@ jobs:
         
       - name: Build to image
         run: |
-         docker build -t dev-transcriber . .
+         docker build -t dev-transcriber . 
+      - name: Tag image
+        run: |
          docker tag dev-transcriber:latest 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:latest
-         docker push 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:latest
+      - name: Push image
+        run: docker push 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:latest
