@@ -29,15 +29,25 @@ jobs:
         run: npm run build
 
   Docker:
-      runs-on: ubuntu-22.04
-      needs: Build
-      steps:
-         - name: Verify Dockerfile exists
-           run: |
-             if [ ! -f ./Dockerfile ]; then
-               echo "Error: Dockerfile not found in the current directory."
-               exit 1
-             fi
-         - name: Build to image
-           run: docker build -t hola -f ./Dockerfile .
+    runs-on: ubuntu-22.04
+    needs: Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.13.1'
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm install -g npm@latest
+      - name: Build
+        run: npm run build
+        
+      - name: Build to image
+        run: docker build -t hola .
 
