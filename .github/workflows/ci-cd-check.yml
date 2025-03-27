@@ -33,5 +33,5 @@ jobs:
       needs: Build
       steps:
          - name: Build to image
-           run: docker build -t -f .github/workflows/Dockerfile .
+           run: docker build -t hola -f Dockerfile .
 
