@@ -56,4 +56,4 @@ jobs:
         run: |
          docker tag dev-transcriber:latest 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:latest 
       - name: Push image
-        run: docker push 767397723821.dkr.ecr.us-east-2.amazonaws.com/${{github.actor}}/dev-transcriber:latest
+        run: docker push 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:${{github.actor}}/latest
