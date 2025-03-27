@@ -56,4 +56,5 @@ jobs:
         with:
           file: Dockerfile
           push: true
+
           tags: dev-transcriber:latest 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:latest
