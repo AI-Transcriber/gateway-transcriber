@@ -34,3 +34,4 @@ jobs:
       steps:
          - name: Build to image
            run: docker build -t Hehe ./dockerfile
+           
