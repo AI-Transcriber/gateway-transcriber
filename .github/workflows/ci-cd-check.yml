@@ -47,7 +47,15 @@ jobs:
           npm install -g npm@latest
       - name: Build
         run: npm run build
-        
+      
+      - name: Install AWS CLI
+        run: |
+          sudo apt update
+          sudo apt install -y awscli
+
+      - name: Login to Amazon ECR
+        run: aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 767397723821.dkr.ecr.us-east-2.amazonaws.com
+
       - name: Build to image
         run: |
          docker build -t dev-transcriber . 
