@@ -1,4 +1,4 @@
-name: Devolepment CI/CD
+name: Check CI/CD
 on:
 
   push: 
@@ -32,5 +32,5 @@ jobs:
       runs-on: ubuntu-22.04
       needs: Build
       steps:
-         - name: Login to ECR
-           run: echo 'hola'
+         - name: Build to image
+           run: docker build -t Hehe .
