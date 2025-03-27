@@ -33,4 +33,4 @@ jobs:
       needs: Build
       steps:
          - name: Build to image
-           run: docker build -t Hehe .
+           run: docker build -t Hehe ./Dockerfile
