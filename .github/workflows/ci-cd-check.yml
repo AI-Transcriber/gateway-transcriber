@@ -27,7 +27,22 @@ jobs:
           npm install -g npm@latest
       - name: Build
         run: npm run build
-
+      - name: Post a message in a channel
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          webhook: https://hooks.slack.com/services/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
+          webhook-type: incoming-webhook
+          payload: |
+            text: "*GitHub Action build result*: ${{ github.event_name }}"
+            blocks:
+              - type: "section"
+                text:
+                  type: "mrkdwn"
+                  text: "GitHub Action build result:
+             
+          
+         
+             
   Docker:
     environment: 
       name: Develop 
