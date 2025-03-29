@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [16,20,22]
+        node-version: [18,20,22]
     environment:
       name: Develop
 
