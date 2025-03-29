@@ -13,10 +13,11 @@ jobs:
   Build:
     permissions:
       contents: read
-    runs-on: ubuntu-22.04
+    runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        node-version: [16,20,22]
+        os: [ubuntu-22.04, windows-2022, macos-12]
+        node-version: [18,20,22]
     environment:
       name: Develop
 
