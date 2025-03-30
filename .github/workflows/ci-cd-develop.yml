@@ -5,14 +5,19 @@ on:
     branches:
       - develop
   
-    
+
+
   push:
     branches:
       - develop
+
+permissions: 
+  id-token: write
+  contents: read     
+
 jobs:
   Build:
     permissions:
-      id-token: write
       contents: read
     runs-on: ${{matrix.os}}
     strategy:
