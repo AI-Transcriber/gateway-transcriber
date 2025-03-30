@@ -12,17 +12,18 @@ on:
 jobs:
   Build:
     permissions:
+      id-token: write
       contents: read
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
         os: [ubuntu-22.04, windows-2022, macos-latest]
-        
         node-version: [22]
     environment:
       name: Develop
 
     steps:
+    
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -35,9 +36,16 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
-          npm uninstall inflight
           npm install -g npm@latest
 
       - name: Build
         run: npm run build
 
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{secrets.DEV_AZURE_CLIENT_ID}}
+          subscription-id: ${{secrets.DEV_AZURE_SUBSCRIPTION_ID}}
+          tenant-id: ${{secrets.DEV_AZURE_TENANT_ID}}
+          
+#transcriber-dev-identity,transcriber-prod-identity
