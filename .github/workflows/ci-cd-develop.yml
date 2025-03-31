@@ -19,7 +19,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-22.04, windows-2022]
+        os: [ubuntu-22.04]
         node-version: [22]
     environment:
       name: Develop
@@ -38,7 +38,6 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
-          npm install -g npm@latest
 
       - name: Build
         run: npm run build
@@ -49,7 +48,6 @@ jobs:
           client-id: ${{secrets.DEV_AZURE_CLIENT_ID}}
           subscription-id: ${{secrets.DEV_AZURE_SUBSCRIPTION_ID}}
           tenant-id: ${{secrets.DEV_AZURE_TENANT_ID}}
-          environment: Develop
-          audience: api://AzureADTokenExchange
+          
           
 
