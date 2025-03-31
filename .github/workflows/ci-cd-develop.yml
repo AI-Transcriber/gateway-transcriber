@@ -11,18 +11,15 @@ on:
     branches:
       - develop
 
-permissions: 
-  id-token: write
-  contents: read     
-
 jobs:
   Build:
     permissions:
+      id-token: write
       contents: read
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-22.04, windows-2022, macos-latest]
+        os: [ubuntu-22.04, windows-2022]
         node-version: [22]
     environment:
       name: Develop
@@ -53,3 +50,4 @@ jobs:
           subscription-id: ${{secrets.DEV_AZURE_SUBSCRIPTION_ID}}
           tenant-id: ${{secrets.DEV_AZURE_TENANT_ID}}
           
+
