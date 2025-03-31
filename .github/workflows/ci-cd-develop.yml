@@ -53,4 +53,3 @@ jobs:
           subscription-id: ${{secrets.DEV_AZURE_SUBSCRIPTION_ID}}
           tenant-id: ${{secrets.DEV_AZURE_TENANT_ID}}
           
-#transcriber-dev-identity,transcriber-prod-identity
