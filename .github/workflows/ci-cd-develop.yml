@@ -1,46 +1,62 @@
 name: Devolepment CI/CD
 on:
-  push:
-    branches:
-      - develop
   pull_request:
     types: [opened, synchronize]
     branches:
       - develop
+
+  push:
+    branches:
+      - develop
+
 jobs:
   Build:
     permissions:
+      id-token: write
       contents: read
-    runs-on: ubuntu-22.04
-    
-    
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04]
+        node-version: [22]
+    environment:
+      name: Develop
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.13.1'
+          node-version: ${{ matrix.node-version }}
       - name: Install Dependencies
         run: |
           npm install
-          npm install -g npm@latest
-      - name: 'Dependency Review'
-        uses: actions/dependency-review-action@v4
 
       - name: Build
         run: npm run build
 
-  # Docker:
-  #     runs-on: ubuntu-22.04
-  #     needs: Build
-  #     steps:
-  #        - name: Login to ECR
-  #          uses: docker/login-action@v3
-  #          with:
-  #           registry: <aws-account-number>.dkr.ecr.<region>.amazonaws.com
-  #           username: ${{  }}
-  #           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  Docker:
+    runs-on: ubuntu-22.04
+    environment:
+      name: Develop
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Login to AWS ECR
+        uses: docker/login-action@v3
+        with:
+          registry: 767397723821.dkr.ecr.us-east-2.amazonaws.com
+          username: ${{ secrets.DEV_AWS_ACCESS_KEY_ID}}
+          password: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
+
+      - name: Build to image
+        run: |
+          docker build -t dev-transcriber .
+          docker tag dev-transcriber:latest 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:latest
+          docker push 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:latest
