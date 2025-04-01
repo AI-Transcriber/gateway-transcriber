@@ -2,7 +2,7 @@ FROM node:22.13.1
 
 WORKDIR /app
 
-COPY package.json .
+COPY package.json package-lock.json ./
 
 RUN npm install
 
@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 9000
 
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start"]
