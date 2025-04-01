@@ -4,8 +4,6 @@ on:
     types: [opened, synchronize]
     branches:
       - develop
-  
-
 
   push:
     branches:
@@ -25,7 +23,6 @@ jobs:
       name: Develop
 
     steps:
-    
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -42,14 +39,18 @@ jobs:
       - name: Build
         run: npm run build
 
-      -  name: Login to ECR
-         uses: docker/login-action@v3
-         with:
+  Docker:
+    runs-on: ubuntu-22.04
+    environment:
+      name: Develop
+    steps:
+      - name: Login to ECR
+        uses: docker/login-action@v3
+        with:
           registry: 767397723821.dkr.ecr.us-east-2.amazonaws.com
           username: ${{ secrets.DEV_AWS_ACCESS_KEY_ID}}
           password: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
-      
+
       - name: Build to image
         run: |
           docker build -t dev-transcriber .
-        
