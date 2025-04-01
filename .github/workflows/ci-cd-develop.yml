@@ -67,6 +67,7 @@ jobs:
         with:
           name: dev-transcriber-image
           path: ./dev-transcriber.tar
+          retention-days: 3
 
   Deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
@@ -75,7 +76,7 @@ jobs:
     environment:
       name: Develop
     steps:
-      - name: Download Docker image
+      - name: Download Docker image artifact
         uses: actions/download-artifact@v4
         with:
           name: dev-transcriber-image
