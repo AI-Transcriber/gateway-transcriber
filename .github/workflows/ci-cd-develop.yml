@@ -62,6 +62,7 @@ jobs:
           docker save -o dev-transcriber.tar dev-transcriber
 
       - name: upload Docker image
+        if: github.event_name == 'pull_request' 
         uses: actions/upload-artifact@v4
         with:
           name: dev-transcriber-image
