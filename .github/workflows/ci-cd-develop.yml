@@ -48,3 +48,8 @@ jobs:
           registry: 767397723821.dkr.ecr.us-east-2.amazonaws.com
           username: ${{ secrets.DEV_AWS_ACCESS_KEY_ID}}
           password: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
+      
+      - name: Build to image
+        run: |
+          docker build -t dev-transcriber .
+        
