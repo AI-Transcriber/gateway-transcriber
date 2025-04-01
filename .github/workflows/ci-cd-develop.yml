@@ -59,8 +59,15 @@ jobs:
         run: |
           docker build -t dev-transcriber .
           
-      - name: Tag and Push to ECR
-        if: github.event_name == 'push'
+       
+  Deploy:
+    runs-on: ubuntu-22.04
+    needs: [Build, Docker]
+    environment:
+      name: Develop
+    steps:
+
+      - name: Deploy Image to AWS ECR
         run: |
           docker tag dev-transcriber:latest 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:${{github.sha}}
           docker push 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:${{github.sha}}
