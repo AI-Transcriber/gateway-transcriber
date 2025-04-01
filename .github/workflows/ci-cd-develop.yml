@@ -60,6 +60,7 @@ jobs:
           docker build -t dev-transcriber .
           
       - name: Tag and Push to ECR
+        if: github.event_name == 'push'
         run: |
           docker tag dev-transcriber:latest 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:${{github.sha}}
           docker push 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:${{github.sha}}
