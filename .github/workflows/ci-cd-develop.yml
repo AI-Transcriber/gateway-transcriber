@@ -83,7 +83,8 @@ jobs:
 
       - name: Load Docker image
         run: |
-          docker load -i dev-transcriber.tar
+          docker load -i ./dev-transcriber.tar
+
       - name: Deploy Image to AWS ECR
         run: |
           docker tag dev-transcriber:latest 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:${{github.sha}}
