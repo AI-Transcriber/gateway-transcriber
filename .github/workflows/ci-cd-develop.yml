@@ -56,10 +56,17 @@ jobs:
           password: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
 
       - name: Build to image
+        if: github.event_name == 'pull_request' 
         run: |
           docker build -t dev-transcriber .
-          
-       
+          docker save -o dev-transcriber.tar dev-transcriber
+
+      - name: upload Docker image
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-transcriber-image
+          path: ./dev-transcriber.tar
+
   Deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
     runs-on: ubuntu-22.04
@@ -67,7 +74,15 @@ jobs:
     environment:
       name: Develop
     steps:
+      - name: Download Docker image
+        uses: actions/download-artifact@v4
+        with:
+          name: dev-transcriber-image
+          path: ./dev-transcriber.tar
 
+      - name: Load Docker image
+        run: |
+          docker load -i dev-transcriber.tar
       - name: Deploy Image to AWS ECR
         run: |
           docker tag dev-transcriber:latest 767397723821.dkr.ecr.us-east-2.amazonaws.com/dev-transcriber:${{github.sha}}
