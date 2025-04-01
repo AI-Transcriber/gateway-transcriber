@@ -56,7 +56,7 @@ jobs:
           password: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
 
       - name: Build to image
-        if: github.event_name == 'pull_request' && github.event.action == 'synchronize'
+        if: github.event_name == 'pull_request' 
         run: |
           docker build -t dev-transcriber .
           docker save -o dev-transcriber.tar dev-transcriber
