@@ -29,17 +29,3 @@ jobs:
         run: npm run build
     
              
-          
-         
-             
-  Docker:
-    environment: 
-      name: Develop 
-    runs-on: ubuntu-22.04
-  
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-    
