@@ -63,6 +63,7 @@ jobs:
           docker save -o dev-transcriber.tar dev-transcriber
 
       - name: upload artifact to s3
+        if: github.event_name == 'pull_request'
         run: |
           aws s3 cp dev-transcriber.tar s3://bukect-artifact-dev-transcriber/
 
