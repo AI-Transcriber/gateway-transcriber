@@ -67,7 +67,10 @@ jobs:
         with:
           name: dev-transcriber-image
           path: ./dev-transcriber.tar
-          retention-days: 3
+
+      - name: upload artifact to s3
+        run: |
+          aws s3 cp dev-transcriber.tar s3://bukect-artifact-dev-transcriber/
 
   Deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
